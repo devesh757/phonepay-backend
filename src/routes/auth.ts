@@ -24,7 +24,7 @@ import bcrypt from "bcrypt"
 
     const userData = user.safeParse(body);
     if(!userData.success){
-       return res.status(403).json({
+       return res.status(401).json({
             message:"Invalid data",
             success:false
         })
@@ -33,7 +33,7 @@ import bcrypt from "bcrypt"
     try{
         const existingUser = await User.findOne({username:userData.data.username})
         if(existingUser){
-           return res.status(403).json({
+           return res.status(401).json({
                 message:"Username was already taken",
                 success:false
             })
@@ -74,7 +74,7 @@ import bcrypt from "bcrypt"
        const userData = usersignin.safeParse(body);
 
        if(!userData.success){
-        return res.status(403).json({
+        return res.status(401).json({
             message:"Invalid data",
             success:true
         })
@@ -84,14 +84,14 @@ import bcrypt from "bcrypt"
        const user = await User.findOne({username:userData.data.username});
          
        if(!user){
-        return res.status(403).json({
+        return res.status(401).json({
             message:" Username and password invalid"
         })
        }
 
        const isPasswordinvalid  = await bcrypt.compare(userData.data.password,user.password)
        if(!isPasswordinvalid){
-        return res.status(403).json({
+        return res.status(401).json({
             message:"Invalid username and password",
             success:false
         })
