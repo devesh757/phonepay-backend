@@ -15,7 +15,7 @@ transfer.post("/transfer",authmiddleware,async(req:Request,res:Response)=>{
   const account = await Account.findOne({userId}).session(session);
   if(!account || account.balance < amount){
     await session.abortTransaction();
-    return res.status(403).json({
+    return res.status(401).json({
         message:"Insufficient balance",
         success:false
     })
@@ -24,7 +24,7 @@ transfer.post("/transfer",authmiddleware,async(req:Request,res:Response)=>{
   const toAccount = await Account.findOne({userId : new mongoose.Types.ObjectId(to)}).session(session);
   if(!toAccount){
     await session.abortTransaction();
-    return res.status(403).json({
+    return res.status(401).json({
         message:"Invalid Account",
         success:false
     })
