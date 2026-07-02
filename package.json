@@ -2,13 +2,11 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/api/index.js",
   "scripts": {
-     "scripts": {
     "build": "tsc -b",
     "start": "node dist/api/index.js",
     "dev": "npm run build && node dist/api/index.js"
-
   },
   "keywords": [],
   "author": "",
