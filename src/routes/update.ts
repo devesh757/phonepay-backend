@@ -18,7 +18,7 @@ update.put("/update", authmiddleware,async(req:Request,res:Response) => {
    const updateUser = userData.safeParse(body);
 
    if(!updateUser.success){
-      return res.status(403).json({
+      return res.status(401).json({
         message:" Error while updating",
         success:false
       })
@@ -38,7 +38,7 @@ const result = await User.updateOne(
 );
 
   if(result.matchedCount === 0){
-    return res.status(404).json({
+    return res.status(401).json({
         message:'user not found',
         success:false
     })
